@@ -8,6 +8,7 @@ public class SingleLinkedListDemo {
         HeroNode lujunyi2 = new HeroNode(2, "卢俊义", "玉麒麟");
         HeroNode wuyong3 = new HeroNode(3, "吴用", "智多星");
         HeroNode gongsunsheng4 = new HeroNode(4, "公孙胜", "入云龙");
+        HeroNode wangyuning = new HeroNode(109, "王余柠", "测试");
 
         //创建要给链表
         SingleLinkedList singleLinkedList = new SingleLinkedList();
@@ -21,7 +22,19 @@ public class SingleLinkedListDemo {
         singleLinkedList.addByOrder(wuyong3);
         singleLinkedList.addByOrder(lujunyi2);
         singleLinkedList.addByOrder(gongsunsheng4);
-        singleLinkedList.addByOrder(gongsunsheng4);//测试插入重复号码
+//        singleLinkedList.addByOrder(gongsunsheng4);//测试插入重复号码
+        singleLinkedList.addByOrder(wangyuning);//测试修改的数据
+//        //显示
+//        singleLinkedList.list();
+//        System.out.println("***************");
+//        HeroNode newwangyuning1 = new HeroNode(109, "wangyuning", "ceshi");//修改成功的案例
+//        HeroNode newwangyuning2 = new HeroNode(109, "wangyuning", "ceshi");//修改失败的案例
+//        singleLinkedList.update(newwangyuning1);
+
+        //删除
+        singleLinkedList.delete(109);
+        singleLinkedList.delete(108);
+
         //显示
         singleLinkedList.list();
     }
@@ -84,6 +97,57 @@ class SingleLinkedList {
         }
     }
 
+    //修改节点信息，根据编号来修改
+    public void update(HeroNode newHeroNode){
+        //判断是否为空
+        if(head.next == null){
+            System.out.println("链表为空");
+            return;
+        }
+        //找到需要修改的节点
+        HeroNode temp = head.next;
+        boolean flag = false;
+        while(true){
+            if(temp == null){
+                break;//已经遍历完了
+            }
+            if (temp.no == newHeroNode.no){
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        //根据flag判断是否找到
+        if (flag){
+            temp.name = newHeroNode.name;
+            temp.nickName = newHeroNode.nickName;
+        }else {
+            System.out.printf("没有找到编号为 %d 为的节点，无法修改\n",newHeroNode.no);
+        }
+    }
+
+    //删除节点
+    //思路：我们需要找出要删除的节点的前一个节点，
+    public void delete(int no){
+        HeroNode temp = head;
+        boolean flag = false;//是否找到待删除的节点
+        while (true){
+            if (temp.next==null){
+                break;//到最后了
+            }
+            if (temp.next.no==no){//找到了待删除的节点
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        //判断结果
+        if (flag){
+            temp.next = temp.next.next;
+        }else {
+            System.out.printf("没有找到编号为 %d 为的节点，无法删除\n",no);
+        }
+    }
     //显示链表[遍历]
     public void list(){
         //判断链表是否为空
