@@ -132,10 +132,10 @@ class SingleLinkedList {
         HeroNode temp = head;
         boolean flag = false;//是否找到待删除的节点
         while (true){
-            if (temp.next==null){
+            if (temp.next == null) {
                 break;//到最后了
             }
-            if (temp.next.no==no){//找到了待删除的节点
+            if (temp.next.no == no) {//找到了待删除的节点的前一个节点temp
                 flag = true;
                 break;
             }
