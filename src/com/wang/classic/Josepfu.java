@@ -4,9 +4,11 @@ public class Josepfu {
     public static void main(String[] args) {
         //测试
         CircleSingleLinkedList circleSingleLinkedList = new CircleSingleLinkedList();
-        circleSingleLinkedList.addBoy(50);//加入5个boy
+        circleSingleLinkedList.addBoy(25);//加入5个boy
         //显示小孩
         circleSingleLinkedList.showBoy();
+        //测试出圈的方法
+        circleSingleLinkedList.conuntBoy(1,2,25);
     }
 }
 
@@ -56,6 +58,51 @@ class CircleSingleLinkedList {
             }
             curBoy = curBoy.getNext();
         }
+    }
+
+    /**
+     * 根据用户的输出，计算出圈的顺序
+     * @param startNo 从第几个开始报数
+     * @param countNum 出列的数
+     * @param nums 表示多少小孩
+     */
+    public void conuntBoy (int startNo,int countNum,int nums){
+        if(first ==null||startNo<1||startNo>nums){
+            //检验数据
+            System.out.printf("数据非法~~");
+        }
+        //创建辅助指针
+        Boy helper = first;
+        //先让first指向第一个报数的boy
+        for (int i =0;i<startNo-1;i++){
+            first = first.getNext();
+        }
+        //让helper指向firstboy前一个
+        while (true){
+            if (helper.getNext()==first){
+                break;
+            }
+            helper = helper.getNext();
+        }
+        //当小孩报数时，让first 和 helper 指针同时移动 count-1 次，然后出圈
+        //这里时一个循环，知道圈中只有一个节点
+        while (true){
+            if (helper==first){//说明圈中只有一个节点
+                break;
+            }
+            //让first 和 helper 指针同时移动 countNum-1 次
+            for (int i = 0;i<countNum-1;i++){
+                first = first.getNext();
+                helper = helper.getNext();
+            }
+            //此时first指向的节点，就是小孩要出圈的节点
+            System.out.printf("编号为 %d 的小孩出列了\n",first.getNo());
+            //helper->first->first.next  =>  helper->first.next 这样first就出列了
+            first = first.getNext();
+            helper.setNext(first);
+        }
+        System.out.printf("编号为 %d 的小孩出列了\n",first.getNo());
+        System.out.println("全部出列了");
     }
 }
 
