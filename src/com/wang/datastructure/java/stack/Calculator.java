@@ -14,6 +14,7 @@ public class Calculator {
         int oper = 0;
         int res = 0;//结果
         char ch = ' ';//保存扫描的char
+        String keepNum = "";//用于拼接多位数的
         //开始扫描
         while (true){
             //依次得到expression的每一个字符
@@ -44,7 +45,21 @@ public class Calculator {
                 }
             }else {
                 //如果是数，直接入数栈
-                numStack.push(ch - 48);//是char字符的1，不是真正的1；
+                //numStack.push(ch - 48);//是char字符的1，不是真正的1；
+                //当处理多位数时，不能发现一个数就入栈
+                //需要向expression的表达式向后看几位，
+                //定义一个字符串变量用于拼接
+                //处理多位数
+
+                keepNum+=ch;
+
+                //ch是最后一个直接入栈
+                //判断下一个字符是不是数，如果时数，继续扫描，如是运算符，就入栈
+                if (index==expression.length()-1||operStack.isOper(expression.substring(index+1,index+2).charAt(0))){
+                    //是运算符，入栈
+                    numStack.push(Integer.parseInt(keepNum));
+                    keepNum = "";
+                }
             }
             //让index+1，并判断是否扫描到expression最后
             index++;
