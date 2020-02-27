@@ -3,7 +3,7 @@ package com.wang.datastructure.java.stack;
 import java.util.Scanner;
 
 public class Calculator {
-    public static void calculator(String expression){
+    public static int calculator(String expression) {
         //创建数栈和符号栈
         ArrayStack2 numStack = new ArrayStack2(expression.length());
         ArrayStack2 operStack = new ArrayStack2(expression.length());
@@ -63,23 +63,27 @@ public class Calculator {
             }
             //让index+1，并判断是否扫描到expression最后
             index++;
-            if (index==expression.length())
+            if (index == expression.length())
                 break;
         }
-        //
-        while (true){
-            //如果符号栈为空，则计算到最后的结果，数栈中只有一个数【结果】
-            if (operStack.isEmpty()){
-                break;
-            }
+        if (operStack.isEmpty()) {
+            //将数栈的最后一个出栈就是结果
+            return numStack.pop();
+        } else if (operStack.size() == 1) {
             num1 = numStack.pop();
             num2 = numStack.pop();
             oper = operStack.pop();
-            res = numStack.cal(num1,num2,oper);
-            numStack.push(res);//入栈
+            return numStack.cal(num1, num2, oper);
+        } else {
+            String newexpression = "";
+            while (!operStack.isEmpty()) {
+                newexpression = "" + (char) operStack.pop() + numStack.pop() + newexpression;
+            }
+            newexpression = "" + numStack.pop() + newexpression;
+            //System.out.println(newexpression);
+            return calculator(newexpression);
         }
-        //将数栈的最后一个出栈就是结果
-        System.out.printf("表达式【%s】的结果是【%d】\n",expression,numStack.pop());
+
     }
     public static void main(String[] args) {
         //根据前面的思路，完成表达式的运算
@@ -99,15 +103,11 @@ public class Calculator {
                     loop=false;
                     break;
                 default:
-                    calculator(key);
+                    System.out.printf("表达式【%s】的结果是【%d】\n", key, calculator(key));
                     break;
             }
         }
         System.out.println("退出系统~~");
-        //String expression = "3+2*3-2/1";
-
-
-
     }
 }
 
@@ -122,6 +122,11 @@ class ArrayStack2 {
     public ArrayStack2(int maxSize) {
         this.maxSize = maxSize;
         stack = new int[this.maxSize];
+    }
+
+    //栈的size
+    public int size() {
+        return top + 1;
     }
 
     //栈满
