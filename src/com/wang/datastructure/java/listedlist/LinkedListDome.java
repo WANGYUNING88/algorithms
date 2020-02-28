@@ -1,4 +1,4 @@
-package com.wang.classic;
+package com.wang.datastructure.java.listedlist;
 
 import java.util.Stack;
 

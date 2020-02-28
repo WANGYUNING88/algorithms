@@ -1,4 +1,4 @@
-package com.wang.classic;
+package com.wang.datastructure.java.listedlist;
 
 public class Josepfu {
     public static void main(String[] args) {
