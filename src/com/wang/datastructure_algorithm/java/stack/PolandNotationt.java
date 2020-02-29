@@ -1,4 +1,4 @@
-package com.wang.datastructure.java.stack;
+package com.wang.datastructure_algorithm.java.stack;
 
 import com.wang.util.OperationUtils;
 

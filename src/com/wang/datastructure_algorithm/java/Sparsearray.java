@@ -1,4 +1,4 @@
-package com.wang.datastructure.java;
+package com.wang.datastructure_algorithm.java;
 
 import com.wang.util.ArrayUtils;
 

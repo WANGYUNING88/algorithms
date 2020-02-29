@@ -1,4 +1,4 @@
-package com.wang.datastructure.java.recursion;
+package com.wang.datastructure_algorithm.java.recursion;
 
 public class RecursionTest {
     public static void main(String[] args) {

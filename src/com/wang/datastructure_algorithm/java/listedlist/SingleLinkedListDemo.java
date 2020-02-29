@@ -1,4 +1,4 @@
-package com.wang.datastructure.java.listedlist;
+package com.wang.datastructure_algorithm.java.listedlist;
 
 public class SingleLinkedListDemo {
     public static void main(String[] args) {

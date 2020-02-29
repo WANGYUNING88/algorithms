@@ -1,4 +1,4 @@
-package com.wang.datastructure.java.recursion;
+package com.wang.datastructure_algorithm.java.recursion;
 
 public class Queue8 {
     private static int max = 8;//多少个皇后
