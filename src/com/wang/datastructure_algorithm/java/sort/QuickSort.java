@@ -12,7 +12,7 @@ public class QuickSort {
         quickSort(array,0,array.length-1);*/
 
         //测试速度 80000 个数据
-        int[] array = new int[8];
+        int[] array = new int[80000];
         for (int i = 0; i < array.length; i++) {
             array[i] = (int) (Math.random() * array.length * 100);//生成一个[0,array.length*100)之间的数
         }
