@@ -52,6 +52,7 @@ public class FibonacciSearch {
         //使用while 来循环处理，找到我们的数 key
         while (low <= high) {
             mid = low + f[k - 1] - 1;
+            //f[k] = f[k-1]+f[k-2];
             if (value < temp[mid]) {
                 //向数组的左查找
                 high = mid - 1;
