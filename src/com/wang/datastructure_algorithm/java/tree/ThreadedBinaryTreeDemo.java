@@ -3,6 +3,11 @@ package com.wang.datastructure_algorithm.java.tree;
 public class ThreadedBinaryTreeDemo {
     public static void main(String[] args) {
         //测试中序线索二叉树
+        //               1
+        //            /     \
+        //           3       6
+        //         /   \   /   \
+        //        8    10 14
         TreeNode2 root = new TreeNode2(1);
         TreeNode2 root1 = new TreeNode2(3);
         TreeNode2 root2= new TreeNode2(6);
@@ -17,12 +22,17 @@ public class ThreadedBinaryTreeDemo {
         root2.setLeft(root5);
 
         ThreadedBinaryTree threadedBinaryTree = new ThreadedBinaryTree(root);
-        threadedBinaryTree.threaderNodes();
+        threadedBinaryTree.threadedNodes();
 
         //测试：以10号节点 测试
         TreeNode2 left = root4.getLeft();
         TreeNode2 right = root4.getRight();
         System.out.printf("%s号的前驱节点的值是：%s，后继节点的值是：%s",10,left,right);//前驱是3，后继是1
+
+        //测试遍历
+//        threadedBinaryTree.preOrderTraverse();//使用原来的遍历方式，会死循环
+        System.out.println("使用线索化的方式遍历(中序) --");
+        threadedBinaryTree.threadedList();//8 3 10 1 14 6
     }
 }
 
@@ -36,8 +46,32 @@ class ThreadedBinaryTree {
     }
 
     //重载
-    public void threaderNodes() {
-        this.threaderNodes(root);
+    public void threadedNodes() {
+        this.threadedNodes(root);
+    }
+
+    //遍历线索化二叉树的方法
+    public void threadedList(){
+        //定义一个变量，存储当前遍历的节点，从root开始
+        TreeNode2 node2 = root;
+        while (node2!=null){
+            //循环的找到leftType == 1 的节点，第一个找到就是这个节点
+            //后面随着遍历而变化，因为当leftType==1时，说明该节点是按照线索化
+            //处理后的有效节点
+            while (node2.getLeftType()==0){
+                node2 = node2.getLeft();
+            }
+            //打印当前节点
+            System.out.println(node2);
+            //如果当前节点的右指针指向的是后继节点，就一直输出
+            while (node2.getRightType()==1){
+                //获取到当前节点的后继节点
+                node2 = node2.getRight();
+                System.out.println(node2);
+            }
+            //替换这个遍历的节点
+            node2 = node2.getRight();
+        }
     }
 
     /**
@@ -45,13 +79,13 @@ class ThreadedBinaryTree {
      *
      * @param root 就是当前需要线索化的节点
      */
-    public void threaderNodes(TreeNode2 root) {
+    public void threadedNodes(TreeNode2 root) {
         //如果 root == null ,不能线索化
         if (root == null) {
             return;
         }
         //(一)先线索化左子树
-        threaderNodes(root.getLeft());
+        threadedNodes(root.getLeft());
         //(二)先线索化当前节点
         //    处理root节点的前驱节点
         if (root.getLeft() == null) {
@@ -72,7 +106,7 @@ class ThreadedBinaryTree {
         // 每处理一个节点，让当前节点是下一个节点的前驱节点
         pre = root;
         // (三)先线索化右子树
-        threaderNodes(root.getRight());
+        threadedNodes(root.getRight());
 
     }
 
