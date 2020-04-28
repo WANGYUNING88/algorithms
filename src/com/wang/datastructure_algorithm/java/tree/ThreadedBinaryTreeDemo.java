@@ -20,19 +20,33 @@ public class ThreadedBinaryTreeDemo {
         root1.setLeft(root3);
         root1.setRight(root4);
         root2.setLeft(root5);
+        root1.parent = root;
+        root2.parent = root;
+        root3.parent = root1;
+        root4.parent = root1;
+        root5.parent = root2;
 
         ThreadedBinaryTree threadedBinaryTree = new ThreadedBinaryTree(root);
-        threadedBinaryTree.threadedNodes();
+//        threadedBinaryTree.inorderThreadedNodes();//中序 线索化
+//        threadedBinaryTree.perorderThreadedNodes();//前序 线索化
+        threadedBinaryTree.postorderThreadedNodes();//后序 线索化
 
         //测试：以10号节点 测试
         TreeNode2 left = root4.getLeft();
         TreeNode2 right = root4.getRight();
-        System.out.printf("%s号的前驱节点的值是：%s，后继节点的值是：%s",10,left,right);//前驱是3，后继是1
+        //中序：前驱是3，后继是1
+        //前序：前驱是8，后继是6
+        //后序：前驱是8，后继是3
+        System.out.printf("%s号的前驱节点的值是：%s，后继节点的值是：%s\n",10,left,right);
 
         //测试遍历
 //        threadedBinaryTree.preOrderTraverse();//使用原来的遍历方式，会死循环
-        System.out.println("使用线索化的方式遍历(中序) --");
-        threadedBinaryTree.threadedList();//8 3 10 1 14 6
+//        System.out.println("使用线索化的方式遍历(中序) --");
+//        threadedBinaryTree.inorderthreadedList();//8 3 10 1 14 6
+//        System.out.println("使用线索化的方式遍历(先序) --");
+//        threadedBinaryTree.perorderthreadedList();//1 3 8 10 6 14
+        System.out.println("使用线索化的方式遍历(后序) --");
+        threadedBinaryTree.postorderthreadedList();//8 10 3 14 6 1
     }
 }
 
@@ -46,19 +60,67 @@ class ThreadedBinaryTree {
     }
 
     //重载
-    public void threadedNodes() {
-        this.threadedNodes(root);
+    public void perorderThreadedNodes() {
+        this.perorderThreadedNodes(root);
     }
 
     //遍历线索化二叉树的方法
-    public void threadedList(){
+    public void perorderthreadedList() {
+        TreeNode2 node2 = root;
+        while (node2 != null) {
+            while (node2.getLeftType() == 0) {
+                System.out.println(node2);
+                node2 = node2.getLeft();
+            }
+            //打印当前节点
+            System.out.println(node2);
+            //替换这个遍历的节点
+            node2 = node2.getRight();
+        }
+    }
+
+    /**
+     * //编写对二叉树进行先序线索化的方法
+     *
+     * @param root 就是当前需要线索化的节点
+     */
+    public void perorderThreadedNodes(TreeNode2 root) {
+        if (root == null){
+            return;
+        }
+        if (root.getLeft() == null){
+            root.setLeft(pre);
+            root.setLeftType(1);
+        }
+        if (pre != null && pre.getRight() == null){
+            pre.setRight(root);
+            pre.setRightType(1);
+        }
+        pre = root;
+
+        if (root.getLeftType() == 0){
+            perorderThreadedNodes(root.getLeft());
+        }
+        if (root.getRightType() == 0){
+            perorderThreadedNodes(root.getRight());
+        }
+
+    }
+
+    //重载
+    public void inorderThreadedNodes() {
+        this.inorderThreadedNodes(root);
+    }
+
+    //遍历线索化二叉树的方法
+    public void inorderthreadedList() {
         //定义一个变量，存储当前遍历的节点，从root开始
         TreeNode2 node2 = root;
-        while (node2!=null){
+        while (node2 != null) {
             //循环的找到leftType == 1 的节点，第一个找到就是这个节点
             //后面随着遍历而变化，因为当leftType==1时，说明该节点是按照线索化
             //处理后的有效节点
-            while (node2.getLeftType()==0){
+            while (node2.getLeftType() == 0) {
                 node2 = node2.getLeft();
             }
             //打印当前节点
@@ -79,35 +141,98 @@ class ThreadedBinaryTree {
      *
      * @param root 就是当前需要线索化的节点
      */
-    public void threadedNodes(TreeNode2 root) {
+    public void inorderThreadedNodes(TreeNode2 root) {
         //如果 root == null ,不能线索化
         if (root == null) {
             return;
         }
         //(一)先线索化左子树
-        threadedNodes(root.getLeft());
-        //(二)先线索化当前节点
-        //    处理root节点的前驱节点
+        inorderThreadedNodes(root.getLeft());
+        //(二)线索化当前节点
+            //    处理root节点的前驱节点
         if (root.getLeft() == null) {
             //当前节点的左指针指向前驱节点
             root.setLeft(pre);
             //修改当前左指针类型
             root.setLeftType(1);
         }
-        //    处理root节点（下一个节点的前驱节点）的后继节点（下一个节点本身）
-        // 难点就在当前结点的后继结点是父节点的，而父节点无法直接通过当前结点获得，
-        // 所以只能返回上层递归把它作为上层结点的前驱结点或者左子节点
+            //    处理root节点（下一个节点的前驱节点）的后继节点（下一个节点本身）
+            // 难点就在当前结点的后继结点是父节点的，而父节点无法直接通过当前结点获得，
+            // 所以只能返回上层递归把它作为上层结点的前驱结点或者左子节点
         if (pre != null && pre.getRight() == null) {
             //前驱节点的右指针指向当前节点
             pre.setRight(root);
             ////修改前驱节点的右指针类型
             pre.setRightType(1);
         }
-        // 每处理一个节点，让当前节点是下一个节点的前驱节点
+            // 每处理一个节点，让当前节点是下一个节点的前驱节点
         pre = root;
         // (三)先线索化右子树
-        threadedNodes(root.getRight());
+        inorderThreadedNodes(root.getRight());
 
+    }
+
+    //重载
+    public void postorderThreadedNodes() {
+        this.postorderThreadedNodes(root);
+    }
+
+    //遍历线索化二叉树的方法
+    public void postorderthreadedList() {
+        //先把pre的数据重置
+        pre = null;
+        //定义一个变量，存储当前遍历的节点，从root开始
+        TreeNode2 node2 = root;
+        while (node2 != null) {
+            //找到最左边的点
+            while (node2.getLeftType() == 0) {
+                //获取到当前节点的后继节点
+                node2 = node2.getLeft();
+            }
+            while (node2 != null){
+                //如果右节点类型为1
+                if (node2.getRightType() == 1){
+                    System.out.println(node2);
+                    pre = node2;
+                    node2 = node2.getRight();
+                }else {
+                    if (pre == node2.getRight()){
+                        //如果上一个打印的节点是当前节点的右节点
+                        System.out.println(node2);
+                        pre = node2;
+                        node2 = node2.parent;
+                    }else{
+                        //如果从左节点进入或者一开始就是右节点，找到最左边的节点
+                        node2 = node2.getRight();
+                        while(node2 != null && node2.getLeftType() == 0 && node2.getLeft() != null){
+                            node2 = node2.getLeft();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * //编写对二叉树进行后序线索化的方法
+     *
+     * @param root 就是当前需要线索化的节点
+     */
+    public void postorderThreadedNodes(TreeNode2 root) {
+        if (root == null){
+            return;
+        }
+        postorderThreadedNodes(root.getLeft());
+        postorderThreadedNodes(root.getRight());
+        if (root.getLeft() == null){
+            root.setLeft(pre);
+            root.setLeftType(1);
+        }
+        if (pre != null && pre.getRight() == null){
+            pre.setRight(root);
+            pre.setRightType(1);
+        }
+        pre = root;
     }
 
     //前序遍历
@@ -181,6 +306,7 @@ class TreeNode2 {
     private int no;
     private TreeNode2 left;
     private TreeNode2 right;
+    TreeNode2 parent;
 
     //规定：type = 0 表明指向的左（右）子树，
     //type = 1 表明指向的是前驱（后继）节点；
