@@ -2,39 +2,34 @@ package com.wang;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+class Node implements Comparable<Node>{
+    int value;
+
+    public Node(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return this.value - 0;
+    }
+}
 
 public class Test {
     public static void main(String[] args) {
-
-/*        char ch1 = '1';
-        char ch2 = '+';
-        char ch3 = '3';
-        int i = 43;
-      System.out.println(ch1+ch2+ch3+"");
-       System.out.println(""+ch1+ch3);
-        //System.out.println((char)i);
-        String s = "2";
-        System.out.println(s.substring(0,1).toString());*/
-
-//        String [] s = new String[4];
-//        s[0] = "+";
-//        s[1] = "-";
-//        s[2] = "*";
-//        s[3] = "/";
-//
-//        for (int i =0;i<4;i++){
-//            System.out.printf("[%s]的等级是*%d*\n",s[i],OperationUtils.getLevel(s[i]));
-//        }
-
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(4);
-
-        System.out.println("改变前的："+list.toString());
-        reverse(list);
-        System.out.println("改变后的"+list.toString());
+//        int arr[] = {13, 7, 8, 3, 29, 6, 1};
+//        Arrays.sort(arr);
+//        System.out.println(Arrays.toString(arr));
+        List<String> strings = new ArrayList<>();
+        strings.add("1");
+        strings.add("2");
+        strings.add("3");
+        System.out.println("strings:"+strings);
+        strings.remove(0&1);
+        System.out.println("strings:"+strings);
     }
 
     private static void reverse(List<Integer> list) {
