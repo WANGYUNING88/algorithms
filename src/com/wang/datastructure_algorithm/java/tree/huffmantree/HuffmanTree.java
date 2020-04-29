@@ -1,4 +1,4 @@
-package com.wang.datastructure_algorithm.java.tree;
+package com.wang.datastructure_algorithm.java.tree.huffmantree;
 
 import java.util.ArrayList;
 import java.util.Collections;

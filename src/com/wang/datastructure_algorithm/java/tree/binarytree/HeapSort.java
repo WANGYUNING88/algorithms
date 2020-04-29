@@ -1,4 +1,4 @@
-package com.wang.datastructure_algorithm.java.tree;
+package com.wang.datastructure_algorithm.java.tree.binarytree;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;

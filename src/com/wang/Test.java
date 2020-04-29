@@ -1,9 +1,7 @@
 package com.wang;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 class Node implements Comparable<Node>{
     int value;
@@ -23,13 +21,27 @@ public class Test {
 //        int arr[] = {13, 7, 8, 3, 29, 6, 1};
 //        Arrays.sort(arr);
 //        System.out.println(Arrays.toString(arr));
-        List<String> strings = new ArrayList<>();
-        strings.add("1");
-        strings.add("2");
-        strings.add("3");
-        System.out.println("strings:"+strings);
-        strings.remove(0&1);
-        System.out.println("strings:"+strings);
+//        List<String> strings = new ArrayList<>();
+//        strings.add("1");
+//        strings.add("2");
+//        strings.add("3");
+//        System.out.println("strings:"+strings);
+//        strings.remove(0&1);
+//        System.out.println("strings:"+strings);
+
+//        Map<String,Integer> map = new HashMap<>();
+//        map.put("1",1);
+//        map.put("1",map.get("1")+1);
+//        map.put("2",map.get("2")+1);
+//
+//        System.out.println(map);
+
+        String str = "1010000";
+//        System.out.println((byte)Integer.parseInt(str,2));
+        int i = 5;
+//        System.out.println((i+8)>str.length()?str.length():i+8);
+        System.out.println(str.substring(1,8));
+
     }
 
     private static void reverse(List<Integer> list) {
