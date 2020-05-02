@@ -36,12 +36,27 @@ public class Test {
 //
 //        System.out.println(map);
 
-        String str = "1010000";
-//        System.out.println((byte)Integer.parseInt(str,2));
-        int i = 5;
-//        System.out.println((i+8)>str.length()?str.length():i+8);
-        System.out.println(str.substring(1,8));
+//        String str = "1010000";
+////        System.out.println((byte)Integer.parseInt(str,2));
+//        int i = 5;
+////        System.out.println((i+8)>str.length()?str.length():i+8);
+//        System.out.println(str.substring(1,8));
 
+
+        StringBuilder stringBuilder = new StringBuilder("10101000101111");
+        Map<String,String > map = new HashMap<>();
+        map.put("101010","1");
+        map.put("00101111","2");
+        StringBuilder key = null;
+        for (int i =0;i<stringBuilder.length();){
+            String b = null;
+            key = new StringBuilder();
+            while (b==null&&i<stringBuilder.length()){
+                key.append(stringBuilder.substring(i++,i));
+                b = map.get(key.toString());
+            }
+            System.out.println(b);
+        }
     }
 
     private static void reverse(List<Integer> list) {

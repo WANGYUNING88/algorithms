@@ -15,6 +15,9 @@ public class HuffmanCode {
         String content = "i like like like java do you like a java";
         byte[] huffmanzip = huffmanzip(content);
 //        byteToBitString(huffmanzip[0]);
+        byte[] decode = decode(huffmanCodes, huffmanzip);
+        System.out.println("原来的字符串="+new String(decode));//i like like like java do you like a java
+
     }
 
     ///////////////////////////数据解压/////////////////////////////
@@ -23,22 +26,68 @@ public class HuffmanCode {
     //2、将 哈夫曼编码对应的二进制 字符串 对照 哈夫曼编码表 重新 转成 字符串
 
     /**
+     * 完成堆数据的解码
+     *
+     * @param huffmanCodes 哈夫曼编码表
+     * @param huffmamBytes 哈夫曼编码得到的字节数组
+     * @return 原字符串对应的字节数组
+     */
+    private static byte[] decode(Map<Byte, String> huffmanCodes, byte[] huffmamBytes) {
+        //1.先得到huffmanBytes 对应的 二进制的字符串
+        StringBuilder stringBuilder = new StringBuilder();
+        //将byte数组 转成二进制的字符串
+        for (int i = 0; i < huffmamBytes.length; i++) {
+            stringBuilder.append(byteToBitString(!(i == huffmamBytes.length - 1), huffmamBytes[i]));
+        }
+        System.out.println("哈夫曼字节数组转成后的二进制字符串=" + stringBuilder.toString());
+
+        //把字符串按照指定的哈夫曼编码进行解码
+        //把哈夫曼编码表进行调换 原表<key,value>->新表<value,key>
+        Map<String, Byte> map = new HashMap<>();
+        for (Map.Entry<Byte, String> entry : huffmanCodes.entrySet()) {
+            map.put(entry.getValue(),entry.getKey());
+        }
+//        System.out.println("map="+map);
+        //创建一个集合，存放byte
+        ArrayList<Byte> list = new ArrayList<>();
+        StringBuilder key = new StringBuilder();
+        for (int i =0;i<stringBuilder.length();){
+            Byte b = null;
+            key = new StringBuilder();
+            while (b==null&&i<stringBuilder.length()){
+                key.append(stringBuilder.substring(i++,i));
+                b = map.get(key.toString());
+            }
+            list.add(b);
+        }
+
+        //当for循环结束后，list存放了所有字符
+        byte []b = new byte[list.size()];
+        for (int i =0;i<b.length;i++){
+            b[i] = list.get(i);
+        }
+
+        return b;
+    }
+
+    /**
      * 将一个byte 转成 二进制的字符串
+     *
      * @param flag 是否要补位的标识 true 需要 false 不需要
      * @param b
      * @return
      */
-    private static String byteToBitString(boolean flag, byte b){
+    private static String byteToBitString(boolean flag, byte b) {
         int temp = b;//将 b 转成 int
 
-        if (false)
+        if (flag)
             //如果是整数 还需要 补位 比如 1 就是 的 二进制就是 1 => 0000 0001
             temp |= 256;//按位或运算 256 => 1 0000 0000 | 0 0000 0001 = 1 0000 0001
 
         String string = Integer.toBinaryString(temp);//返回的是 temp 对应的 二进制补码
 
-        if (false)
-            return string.substring(string.length()-8);
+        if (flag)
+            return string.substring(string.length() - 8);
         else
             return string;
     }
@@ -88,7 +137,7 @@ public class HuffmanCode {
         for (byte b : bytes) {
             stringBuilder.append(huffmanCodes.get(b));
         }
-//        System.out.println("测试stringBuilder："+stringBuilder.toString());
+        System.out.println("测试stringBuilder(old)：" + stringBuilder.toString());
 
         //将 stringBuilder 转成 bytes[]
         int len = (stringBuilder.length() + 7) / 8;
