@@ -50,7 +50,7 @@ public class HuffmanCode {
 //        System.out.println("map="+map);
         //创建一个集合，存放byte
         ArrayList<Byte> list = new ArrayList<>();
-        StringBuilder key = new StringBuilder();
+        StringBuilder key = null;
         for (int i =0;i<stringBuilder.length();){
             Byte b = null;
             key = new StringBuilder();
@@ -81,7 +81,7 @@ public class HuffmanCode {
         int temp = b;//将 b 转成 int
 
         if (flag)
-            //如果是整数 还需要 补位 比如 1 就是 的 二进制就是 1 => 0000 0001
+            //如果是正数 还需要 补位 比如 1 就是 的 二进制就是 1 => 0000 0001
             temp |= 256;//按位或运算 256 => 1 0000 0000 | 0 0000 0001 = 1 0000 0001
 
         String string = Integer.toBinaryString(temp);//返回的是 temp 对应的 二进制补码
