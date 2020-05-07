@@ -1,4 +1,4 @@
-package com.wang;
+package com.wang.util.test;
 
 
 import java.util.*;
@@ -43,20 +43,33 @@ public class Test {
 //        System.out.println(str.substring(1,8));
 
 
-        StringBuilder stringBuilder = new StringBuilder("10101000101111");
-        Map<String,String > map = new HashMap<>();
-        map.put("101010","1");
-        map.put("00101111","2");
-        StringBuilder key = null;
-        for (int i =0;i<stringBuilder.length();){
-            String b = null;
-            key = new StringBuilder();
-            while (b==null&&i<stringBuilder.length()){
-                key.append(stringBuilder.substring(i++,i));
-                b = map.get(key.toString());
-            }
-            System.out.println(b);
-        }
+//        int temp =-5;
+//        temp |= 256;//按位或运算 256 => 1 0000 0000 | 0 0000 0001 = 1 0000 0001
+
+//        String string = Integer.toBinaryString(temp);//返回的是 temp 对应的 二进制补码
+//        System.out.println(string);
+
+//        StringBuilder stringBuilder = new StringBuilder("10101000101111");
+//        Map<String,String > map = new HashMap<>();
+//        map.put("101010","1");
+//        map.put("00101111","2");
+//        StringBuilder key = null;
+//        for (int i =0;i<stringBuilder.length();){
+//            String b = null;
+//            key = new StringBuilder();
+//            while (b==null&&i<stringBuilder.length()){
+//                key.append(stringBuilder.substring(i++,i));
+//                b = map.get(key.toString());
+//            }
+//            System.out.println(b);
+//        }
+
+//        final StringBuilder s = new StringBuilder("2222");
+//        s.append("c");
+//        System.out.printf("[s=] %s\n",s);
+//        final String s1 = s.toString();
+//        s1. = "333";
+
     }
 
     private static void reverse(List<Integer> list) {

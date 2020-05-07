@@ -12,7 +12,8 @@ public class HuffmanCode {
     static StringBuilder stringBuilder = new StringBuilder();
 
     public static void main(String[] args) {
-        String content = "i like like like java do you like a java";
+//        String content = "i like like like java do you like a java";
+        String content = "wo jiao wang yu ning fs sdfs  sdfs sd sswerwt ry";
         byte[] huffmanzip = huffmanzip(content);
 //        byteToBitString(huffmanzip[0]);
         byte[] decode = decode(huffmanCodes, huffmanzip);
