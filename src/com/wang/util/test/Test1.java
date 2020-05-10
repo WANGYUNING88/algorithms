@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class Test1 {
     public static void main(String[] args) {
+
+    }
+
+    //保留小数点后10位
+    public static void chufa() {
         Scanner scanner = new Scanner(System.in);
         while (true){
             System.out.println("输入一个被除数");
@@ -25,7 +30,7 @@ public class Test1 {
             }else {
                 s.append(num1/num2+".");
                 num1 = num1%num2;
-                while (num1 != 0 && index < 820) {
+                while (num1 != 0 && index < 10) {
                     num1*=10;
                     s.append(num1 / num2);
                     num1 = num1%num2;
