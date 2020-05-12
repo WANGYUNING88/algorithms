@@ -5,7 +5,6 @@ public abstract class TestFather {
     abstract int getA();
     abstract int getB();
     abstract int getC();
-    private static int getAA(){
-        return a;
-    }
+    abstract int getAA();
+    abstract int getBB();
 }

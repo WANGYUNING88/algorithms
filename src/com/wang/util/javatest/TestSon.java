@@ -15,4 +15,16 @@ public class TestSon extends TestFather implements TestInterface{
     int getC() {
         return 0;
     }
+
+    @Override
+    int getAA() {
+        return 0;
+    }
+
+    @Override
+    int getBB() {
+        return 0;
+    }
+
+
 }
