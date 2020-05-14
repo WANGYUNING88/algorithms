@@ -17,6 +17,7 @@ public class Test implements TestInterface {
 //        System.out.println(a == c);
 
         Class c = Class.forName("com.wang.util.test.Test");
-        Te  = c.getClass();
+//        Te  = c.getClass();
+        c.getCanonicalName();
     }
 }
