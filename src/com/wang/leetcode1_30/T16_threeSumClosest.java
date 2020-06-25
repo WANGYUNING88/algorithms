@@ -1,8 +1,6 @@
-package com.wang.leetcode;
+package com.wang.leetcode1_30;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class T16_threeSumClosest {
     /**

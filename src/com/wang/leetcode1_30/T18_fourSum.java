@@ -1,4 +1,4 @@
-package com.wang.leetcode;
+package com.wang.leetcode1_30;
 
 import java.util.ArrayList;
 import java.util.Arrays;

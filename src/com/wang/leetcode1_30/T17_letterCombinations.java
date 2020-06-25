@@ -1,10 +1,7 @@
-package com.wang.leetcode;
+package com.wang.leetcode1_30;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 
 public class T17_letterCombinations {
     /**
